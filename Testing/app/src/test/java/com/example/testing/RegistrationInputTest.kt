@@ -17,11 +17,12 @@ class RegistrationInputTest {
     }
 
     @Test
-    fun ` non empty and valid entries return true`() {
-        val output = validate.validateAnyInputIsEmpty(
+    fun ` non empty fields return true`() {
+        val output = validate.validateInputIsNotEmpty(
             "Li Wong",
-            "08063492057",
+            "08063057",
             "li.wong@decagon.dev",
+            "Female",
             "liwong@123",
             "liwong@123",
 
@@ -31,10 +32,11 @@ class RegistrationInputTest {
 
     @Test
     fun `empty field returns false`() {
-        val output = validate.validateAnyInputIsEmpty(
+        val output = validate.validateInputIsNotEmpty(
             "Li Wong",
             "08063492057",
             "",
+            "Female",
             "liwong@123",
             "liwong@123"
         )
@@ -75,7 +77,7 @@ class RegistrationInputTest {
 
 
     @Test
-    fun `is a field in sex selection`() {
+    fun `is a valid sex selection`() {
         val output = validate.validateSexSelection(
             "Male"
         )
@@ -83,9 +85,9 @@ class RegistrationInputTest {
     }
 
     @Test
-    fun `is not a field in sex selection`() {
+    fun `is not a valid sex selection`() {
         val output = validate.validateSexSelection(
-            "male"
+            "Sex"
         )
         assertThat(output).isFalse()
     }

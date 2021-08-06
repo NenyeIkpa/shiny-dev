@@ -10,6 +10,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="sex">Sex</string>
     <string-array name="sex_array">
+        <item>Sex</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>

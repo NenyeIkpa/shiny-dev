@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         email = findViewById(R.id.email_et)
         password = findViewById(R.id.password_et)
         confirmPassword = findViewById(R.id.confirmPassword_et)
-        val sex = spinner.selectedItem
+        var sex = spinner.selectedItem
 
 
         val arrayAdapter: ArrayAdapter<Any?> = ArrayAdapter<Any?>(
@@ -41,63 +42,74 @@ class MainActivity : AppCompatActivity() {
 
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // do nothing
-            }
-
             override fun onItemSelected(
                 adapterView: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+
+                sex = adapterView?.getItemAtPosition(position)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
 
         registerButton = findViewById(R.id.registerButton)
 
         registerButton.setOnClickListener {
 
 
-            val person = Person(fullName.text.toString(), phoneNum.text.toString(),
-                email.text.toString(), sex.toString(), password.text.toString(),
-                confirmPassword.text.toString())
 
-            if (RegistrationInputValidation.validateName(fullName.text.toString())&&
-                RegistrationInputValidation.validatePhoneNumber(phoneNum.text.toString()) &&
-                RegistrationInputValidation.validateEmail(email.text.toString())&&
-                RegistrationInputValidation.validateConfirmPassword(
-                    password.text.toString(),
-                    confirmPassword.text.toString()
-                )){
-                 val intent = Intent(this, RegisteredPerson::class.java)
+            val person = Person(
+                fullName.text.toString(), phoneNum.text.toString(),
+                email.text.toString(), sex.toString(), password.text.toString(),
+                confirmPassword.text.toString()
+            )
+
+
+            if (RegistrationInputValidation.validateName(fullName.text.toString())
+                && RegistrationInputValidation.validatePhoneNumber(phoneNum.text.toString())
+                && RegistrationInputValidation.validateEmail(email.text.toString())
+                && spinner.selectedItemPosition == 1 || spinner.selectedItemPosition == 2
+                && RegistrationInputValidation.validatePassword(password.text.toString())
+                && RegistrationInputValidation.validateConfirmPassword(password.text.toString(), confirmPassword.text.toString())
+            ) {
+                val intent = Intent(this, RegisteredPerson::class.java)
                 intent.putExtra("EXTRA_PERSON", person)
 
                 startActivity(intent)
-                }
+            } else {
 
-
-
-
-
-                if (RegistrationInputValidation.validateAnyInputIsEmpty(
-                        fullName.text.toString(), phoneNum.text.toString(),
-                        email.text.toString(), password.text.toString(),
-                        confirmPassword.text.toString()
+                if (!RegistrationInputValidation.validateInputIsNotEmpty(
+                        fullName.text.toString(),
+                        phoneNum.text.toString(),
+                        email.text.toString(),
+                        password.text.toString(),
+                        sex.toString(),
+                        password.toString()
                     )
                 ) {
-                    if (fullName.text.toString().isEmpty()) fullName.error = "Please enter your fullname"
-                    if (phoneNum.text.toString().isEmpty()) phoneNum.error = "Please enter your phone number"
-                    if (email.text.toString().isEmpty()) email.error = "Please enter your email"
-                    if (password.text.toString().isEmpty()) password.error = "Please create a password"
-                    if (confirmPassword.text.toString().isEmpty()) confirmPassword.error = "Please confirm password"
 
-                } else  {
+
+
+                    if (fullName.text.toString().isEmpty()) fullName.error =
+                        "Please enter your fullname"
+                    if (phoneNum.text.toString().isEmpty()) phoneNum.error =
+                        "Please enter your phone number"
+                    if (email.text.toString().isEmpty()) email.error = "Please enter your email"
+                    if (password.text.toString().isEmpty()) password.error =
+                        "Please create a password"
+                    if (confirmPassword.text.toString().isEmpty()) confirmPassword.error =
+                        "Please confirm password"
+
+                } else {
+
+
+//                    Toast.makeText(this, "shows   ${RegistrationInputValidation.validateConfirmPassword(password.text.toString(), confirmPassword.text.toString())}", Toast.LENGTH_LONG).show()
 
                     if (!(RegistrationInputValidation.validateName(fullName.text.toString()))) {
                         fullName.error = "Please enter first and last name."
@@ -108,6 +120,14 @@ class MainActivity : AppCompatActivity() {
                     if (!(RegistrationInputValidation.validateEmail(email.text.toString()))) {
                         email.error = "Please enter a valid email"
                     }
+                    if (spinner.selectedItemPosition == 0) Toast.makeText(
+                        this,
+                        "Make a valid selection",
+                        Toast.LENGTH_LONG
+                    ).show()
+//                        if (!RegistrationInputValidation.validateSexSelection(sex.toString())) {
+//                            Toast.makeText(this, "Make a valid selection", Toast.LENGTH_LONG).show()
+//                        }
                     if (!(RegistrationInputValidation.validatePassword(password.text.toString()))) {
                         password.error =
                             "Password should have more than 5 characters and must contain " +
@@ -120,11 +140,11 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         confirmPassword.error = "Password does not match"
                     }
-
-
                 }
+
+
+            }
         }
-
-
     }
 }
+

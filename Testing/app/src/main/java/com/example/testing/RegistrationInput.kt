@@ -9,20 +9,21 @@ import java.util.regex.Pattern
 object RegistrationInputValidation {
 
         // check that none of the registration fields is empty
-        fun validateAnyInputIsEmpty(
+        fun validateInputIsNotEmpty(
             fullName: String,
             phoneNum: String,
             email: String,
+            sex: String,
             password: String,
             confirmPassword: String
         ): Boolean {
 
-            if (fullName.isEmpty() || phoneNum.isEmpty() || email.isEmpty()
-                || password.isBlank() || confirmPassword.isBlank()
+            if (fullName.isNotEmpty() && phoneNum.isNotEmpty() && email.isNotBlank()
+                && sex != "Sex" && password.isNotBlank() && confirmPassword.isNotEmpty()
             ) {
-                return false
-            }
                 return true
+            }
+                return false
         }
 
     fun validateName(fullName: String): Boolean {
@@ -66,10 +67,7 @@ object RegistrationInputValidation {
         }
 
         fun validateSexSelection(sex: String): Boolean {
-            if (sex == "Male" || sex == "Female") {
-                return true
-            }
-            return false
+            return sex.equals("Male") || sex.equals("Female")
         }
 
 
@@ -97,7 +95,7 @@ object RegistrationInputValidation {
             /**
              * check if password and confirm password match
              */
-            if (password == confirmPassword) {
+            if (password.equals(confirmPassword)) {
                 return true
             }
             return false

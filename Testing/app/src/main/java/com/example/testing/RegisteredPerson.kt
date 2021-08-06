@@ -12,5 +12,6 @@ class RegisteredPerson : AppCompatActivity() {
 
         val person = intent.getSerializableExtra("EXTRA_PERSON") as Person
         registeredPerson.text = person.toString()
+
     }
 }
