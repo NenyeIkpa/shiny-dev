@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background">#2979FF</color>
+
+    <item name="blue" type="color">#FF33B5E5</item>
+    <item name="purple" type="color">#FFAA66CC</item>
+    <item name="green" type="color">#FF99CC00</item>
+    <item name="orange" type="color">#FFFFBB33</item>
+    <item name="red" type="color">#FFFF4444</item>
+    <item name="dark_blue" type="color">#FF0099CC</item>
+    <item name="dark_purple" type="color">#FF9933CC</item>
+    <item name="dark_green" type="color">#FF669900</item>
+    <item name="dark_orange" type="color">#FFFF8800</item>
+    <item name="dark_red" type="color">#FFCC0000</item>
+
+    <integer-array name="androidColors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/dark_blue</item>
+        <item>@color/dark_purple</item>
+        <item>@color/dark_green</item>
+        <item>@color/dark_orange</item>
+        <item>@color/dark_red</item>
+    </integer-array>
+
+</resources>

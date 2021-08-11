@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyContactApp</string>
+    <string name="name">Name:</string>
+    <string name="delete">Delete</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="save">Save</string>
+    <string name="call_permission_denied">Call Permission Denied</string>
+    <string name="call_permission_granted">Call Permission Granted</string>
+</resources>
